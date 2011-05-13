@@ -15,20 +15,20 @@
            *
            * @param form reference to the form object being submitted
            * @param event the name of the event to be triggered, or null
-           * @param container the name of the HTML container to insert the result into
            */
-          function invoke(form, event, container) {
+          function invoke(form, event) {
+//alert('event: '+event + ' form: '+form);
               if (!form.onsubmit) { form.onsubmit = function() { return false } };
               var params = Form.serialize(form, {submit:event});
-              //alert(params);
-              new Ajax.Request('/examples/ajax/Calculator.action', {
+//alert(params);
+              new Ajax.Request('/action/MediaPlayer.action', {
             	  method:'get',
             	  parameters:params,
             	  requestHeaders: {Accept: 'application/json'},
             	  onSuccess: function(transport) {
             	    var json = transport.responseText.evalJSON(true);
-            	    //alert(json ? Object.inspect(json) : "no JSON object");
-            	    var node = $("result");
+//alert(json ? Object.inspect(json) : "no JSON object");
+            	    var node = $("playerId");
             	    node.innerHTML = json.playerId;
             	    
             	    /* */
@@ -40,81 +40,43 @@
             	        for(var key2 in (obj = json.itemList[key]))
             	            {
             	                //obj holds the current object in the json array
-            	                //alert(key2+' '+obj[key2]);
+//alert(key2+' '+obj[key2]);
 								html += "<li>" + key2 + " " + obj[key2] + "</li>";
             	            }
             	    }
             	    html += '</ul>'
  					var node2 = $("playing");
             	    node2.innerHTML = html;            	    
-            	  }
-            	});
-          }
-          function init1() {
-        	  alert('hej');
-        	  var params = '';
-              new Ajax.Request('/examples/ajax/Calculator.action', {
-            	  method:'get',
-            	  parameters:params,
-            	  requestHeaders: {Accept: 'application/json'},
-            	  onSuccess: function(transport) {
-            	    var json = transport.responseText.evalJSON(true);
-            	    //alert(json ? Object.inspect(json) : "no JSON object");
-            	    var node = $("result");
-            	    node.innerHTML = json.playerId;
-            	    
-            	    /* */
-            	    alert('hej1');
-            	    var html = '<ul>';
-            	    for(var key in json.itemList) {
-            	    	if (!json.itemList.hasOwnProperty(key)) {
-            	    		continue;
-            	    	}
-            	        for(var key2 in (obj = json.itemList[key]))
-            	            {
-            	                //obj holds the current object in the json array
-            	                //alert(key2+' '+obj[key2]);
-								html += "<li>" + key2 + " " + obj[key2] + "</li>";
-            	            }
-            	    }
-            	    html += '</ul>'
- 					var node2 = $("playing");
-            	    node2.innerHTML = html;            	    
+            	  },
+            	  onFailure: function() {
+            		  var node = $("playerId");
+            		  node.innerHTML = '<style="font:red>No player running</style>';
             	  }
             	});
           }
           function init() {
-        	  init1();
+        	  invoke(document.forms[0], 'status');
           }
       </script>
   </head>
   <body>
     <h1>MediaPlayer Control</h1>
 
-    <p>Hi, I'm the Stripes Calculator. I can only do addition. Maybe, some day, a nice programmer
-    will come along and teach me how to do other things?</p>
+    <p>Press playpause to Play/Pause the media players</p>
 
     <stripes:form action="/examples/ajax/Calculator.action">
         <table>
             <tr>
-                <td>Number 1:</td>
-                <td><stripes:text name="numberOne"/></td>
-            </tr>
-            <tr>
-                <td>Number 2:</td>
-                <td><stripes:text name="numberTwo"/></td>
-            </tr>
-            <tr>
                 <td colspan="2">
-                    <stripes:submit name="add" value="Add"
-                        onclick="invoke(this.form, this.name, 'result');"/>
-                    <stripes:submit name="divide" value="Divide"
-                        onclick="invoke(this.form, this.name, 'result');"/>
+                    <stripes:submit name="playPause" value="PlayPause"
+                        onclick="invoke(this.form, this.name);"/>
+                    <stripes:submit name="status" value="status"
+                        onclick="invoke(this.form, this.name);"/>
                 </td>
             </tr>
             <tr>
-                <td>Result:</td>
-                <td id="result"></td>
+                <td>Player:</td>
+                <td id="playerId"></td>
             </tr>
             <tr>
                 <td>Playing:</td>

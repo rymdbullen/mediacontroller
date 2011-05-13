@@ -19,28 +19,32 @@ public class JSONMediaPlayerStatus {
 		this.metadata = metadata;
 	}
 
-	public String JSONStatus() throws JSONException {
+	public String JSONStatus() {
 
-		// create a JSONObject to hold relevant info for each item in cart and
-		// stuff all of these objects in a JSONArray
-		JSONArray itemList = new JSONArray();
-		Iterator<String> iter = metadata.keySet().iterator();
-		while (iter.hasNext()) {
-			String key = (String) iter.next();
-			Object thisValue = metadata.get(key);
-			System.out.println(key + " " + thisValue);
-
-			JSONObject ci = new JSONObject();
-			ci.put(key, thisValue);
-			itemList.put(ci);
-		}
-
-		// create a JSONObject to hold relevant info for the status of the player
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("playerId", id);
-//		jsonObj.put("playerId", player.getId());
-//		jsonObj.put("playerRunning", player.isPlayerRunning());
-		jsonObj.put("itemList", itemList);
+		try {
+			// create a JSONObject to hold relevant info for each item in cart and
+			// stuff all of these objects in a JSONArray
+			JSONArray itemList = new JSONArray();
+			Iterator<String> iter = metadata.keySet().iterator();
+			while (iter.hasNext()) {
+				String key = (String) iter.next();
+				Object thisValue = metadata.get(key);
+				System.out.println(key + " " + thisValue);
+	
+				JSONObject ci = new JSONObject();
+				ci.put(key, thisValue);
+				itemList.put(ci);
+			}
+	
+			// create a JSONObject to hold relevant info for the status of the player
+			jsonObj.put("playerId", id);
+	//		jsonObj.put("playerRunning", player.isPlayerRunning());
+			jsonObj.put("itemList", itemList);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// return the object as a JSON String
 		return jsonObj.toString();

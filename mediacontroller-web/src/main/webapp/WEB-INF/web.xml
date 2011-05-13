@@ -45,7 +45,7 @@
         <!-- REQUIRED init parameter for the Stripes Filter. -->
         <init-param>
             <param-name>ActionResolver.Packages</param-name>
-            <param-value>net.sourceforge.stripes.examples</param-value>
+            <param-value>net.tux.mediacontroller.action,net.sourceforge.stripes.examples</param-value>
         </init-param>
 
         <!-- OPTIONAL init parameter for the Stripes Filter. -->

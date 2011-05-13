@@ -177,28 +177,34 @@ public class DBusMediaPlayer {
 		return null;
 	}
 
-	public static void next() {
+	public static JSONMediaPlayerStatus next() {
 		syncronExecuteCommand("next");
+		return getJSONStatus();
 	}
 
-	public static void previous() {
+	public static JSONMediaPlayerStatus previous() {
 		syncronExecuteCommand("previous");
+		return getJSONStatus();
 	}
 
-	public static void pause() {
+	public static JSONMediaPlayerStatus pause() {
 		syncronExecuteCommand("pause");
+		return getJSONStatus();
 	}
 
-	public static void playPause() {
+	public static JSONMediaPlayerStatus playPause() {
 		syncronExecuteCommand("playpause");
+		return getJSONStatus();
 	}
 
-	public void stop() {
-		syncronExecuteCommand("playpause");
+	public JSONMediaPlayerStatus stop() {
+		syncronExecuteCommand("stop");
+		return getJSONStatus();
 	}
 
-	public static void play() {
+	public static JSONMediaPlayerStatus play() {
 		syncronExecuteCommand("play");
+		return getJSONStatus();
 	}
 
 	public static void seek(long offset) {

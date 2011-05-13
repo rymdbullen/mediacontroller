@@ -76,7 +76,7 @@ public class ViewResourceActionBean extends BugzookyActionBean {
      * JSPs and ActionBeans available for viewing.
      */
     @SuppressWarnings("unchecked")
-    public Collection getAvailableResources() {
+    public Collection<String> getAvailableResources() {
         ServletContext ctx = getContext().getRequest().getSession().getServletContext();
         SortedSet<String> resources = new TreeSet<String>();
         resources.addAll( ctx.getResourcePaths("/bugzooky/"));

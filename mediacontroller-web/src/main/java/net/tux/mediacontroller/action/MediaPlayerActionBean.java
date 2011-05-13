@@ -1,15 +1,15 @@
-package net.sourceforge.stripes.examples.ajax;
+package net.tux.mediacontroller.action;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationError;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
-import net.tux.ControlMediaPlayer;
 import net.tux.data.DBusMediaPlayer;
 import net.tux.data.JSONMediaPlayerStatus;
 
@@ -27,10 +27,9 @@ import org.json.JSONException;
  *
  * @author Tim Fennell
  */
-public class CalculatorActionBean implements ActionBean, ValidationErrorHandler {
+@UrlBinding("/action/MediaPlayer.action")
+public class MediaPlayerActionBean implements ActionBean, ValidationErrorHandler {
     private ActionBeanContext context;
-    @Validate(required=true) private double numberOne;
-    @Validate(required=true) private double numberTwo;
 
     public ActionBeanContext getContext() { return context; }
     public void setContext(ActionBeanContext context) { this.context = context; }
@@ -50,35 +49,25 @@ public class CalculatorActionBean implements ActionBean, ValidationErrorHandler 
         return new StreamingResolution("text/html", new StringReader(message.toString()));
     }
 
-    /** Handles the 'add' event, adds the two numbers and returns the result. */
-    @DefaultHandler public Resolution add() {
-        String result = String.valueOf(numberOne + numberTwo);
-        return new StreamingResolution("text", new StringReader(result));
-    }
-
     /** Handles the 'divide' event, divides number two by oneand returns the result. */
-    public Resolution divide() {
-        String result = String.valueOf(numberOne / numberTwo);
-        
-        String jsonText;
-		try {
-			JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus();
-			if(jsonStatus==null) {
-				System.out.println("no og");
-				return new StreamingResolution("text", new StringReader("failed to serialize json"));
-			}
-			jsonText = jsonStatus.JSONStatus().toString();
-			return new StreamingResolution("text", new StringReader(jsonText));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return new StreamingResolution("text", new StringReader("failed to serialize json"));
+    @DefaultHandler 
+    public Resolution status() {
+        String jsonText = getStatus();
+		return new StreamingResolution("text", new StringReader(jsonText));
     }
 
-    // Standard getter and setter methods
-    public double getNumberOne() { return numberOne; }
-    public void setNumberOne(double numberOne) { this.numberOne = numberOne; }
+    /** Handles the 'add' event, adds the two numbers and returns the result. */
+    public Resolution playPause() {
+    	String jsonText = DBusMediaPlayer.playPause().JSONStatus();
+        return new StreamingResolution("text", new StringReader(jsonText));
+    }
 
-    public double getNumberTwo() { return numberTwo; }
-    public void setNumberTwo(double numberTwo) { this.numberTwo = numberTwo; }
+    private String getStatus() {
+		JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus();
+		if(jsonStatus==null) {
+			System.out.println("no og");
+			return "{\"playerId\", \"no player\"}";
+		}
+		return jsonStatus.JSONStatus().toString();
+	}
 }
