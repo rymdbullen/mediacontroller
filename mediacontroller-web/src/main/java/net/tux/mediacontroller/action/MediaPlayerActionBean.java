@@ -49,19 +49,43 @@ public class MediaPlayerActionBean implements ActionBean, ValidationErrorHandler
         return new StreamingResolution("text/html", new StringReader(message.toString()));
     }
 
-    /** Handles the 'divide' event, divides number two by oneand returns the result. */
+    /** Handles the 'status' event and returns the result. */
     @DefaultHandler 
     public Resolution status() {
         String jsonText = getStatus();
 		return new StreamingResolution("text", new StringReader(jsonText));
     }
 
-    /** Handles the 'add' event, adds the two numbers and returns the result. */
+    /** Handles the 'playPause' event and returns the result. */
     public Resolution playPause() {
     	String jsonText = DBusMediaPlayer.playPause().JSONStatus();
         return new StreamingResolution("text", new StringReader(jsonText));
     }
 
+    /** Handles the 'play' event and returns the result. */
+    public Resolution play() {
+    	String jsonText = DBusMediaPlayer.play().JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));
+    }
+    
+    /** Handles the 'stop' event and returns the result. */
+    public Resolution stop() {
+    	String jsonText = DBusMediaPlayer.stop().JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));
+    }
+    
+    /** Handles the 'next' event and returns the result. */
+    public Resolution next() {
+    	String jsonText = DBusMediaPlayer.next().JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));
+    }
+    
+    /** Handles the 'previous' event and returns the result. */
+    public Resolution previous() {
+    	String jsonText = DBusMediaPlayer.previous().JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));
+    }
+    
     private String getStatus() {
 		JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus();
 		if(jsonStatus==null) {

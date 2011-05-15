@@ -197,7 +197,7 @@ public class DBusMediaPlayer {
 		return getJSONStatus();
 	}
 
-	public JSONMediaPlayerStatus stop() {
+	public static JSONMediaPlayerStatus stop() {
 		syncronExecuteCommand("stop");
 		return getJSONStatus();
 	}
