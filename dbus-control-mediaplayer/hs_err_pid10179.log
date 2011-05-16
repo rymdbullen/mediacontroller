@@ -1,0 +1,354 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb6e18fd0, pid=10179, tid=2011220848
+#
+# JRE version: 6.0_24-b07
+# Java VM: Java HotSpot(TM) Server VM (19.1-b02 mixed mode linux-x86 )
+# Problematic frame:
+# V  [libjvm.so+0x473fd0]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x78116800):  JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_vm, id=10195, stack(0x77dbc000,0x77e0d000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x6c706d49
+
+Registers:
+EAX=0x6c706d49, EBX=0xb7180e88, ECX=0x6c706d49, EDX=0x00000d00
+ESP=0x77e0be10, EBP=0x77e0be68, ESI=0x00000000, EDI=0x09ae3008
+EIP=0xb6e18fd0, CR2=0x6c706d49, EFLAGS=0x00010202
+
+Register to memory mapping:
+
+EAX=0x6c706d49
+0x6c706d49 is pointing to unknown location
+
+EBX=0xb7180e88
+0xb7180e88: <offset 0x7dbe88> in /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/server/libjvm.so at 0xb69a5000
+
+ECX=0x6c706d49
+0x6c706d49 is pointing to unknown location
+
+EDX=0x00000d00
+0x00000d00 is pointing to unknown location
+
+ESP=0x77e0be10
+0x77e0be10 is pointing into the stack for thread: 0x78116800
+"JDWP Transport Listener: dt_socket" daemon prio=10 tid=0x78116800 nid=0x27d3 runnable [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+EBP=0x77e0be68
+0x77e0be68 is pointing into the stack for thread: 0x78116800
+"JDWP Transport Listener: dt_socket" daemon prio=10 tid=0x78116800 nid=0x27d3 runnable [0x00000000]
+   java.lang.Thread.State: RUNNABLE
+
+ESI=0x00000000
+0x00000000 is pointing to unknown location
+
+EDI=0x09ae3008
+0x09ae3008 is pointing to unknown location
+
+
+Top of Stack: (sp=0x77e0be10)
+0x77e0be10:   78116800 00000000 77e0be38 77e0be20
+0x77e0be20:   78116800 00000000 00000000 00000000
+0x77e0be30:   78116800 b76b8a9f b68d5438 b68d5438
+0x77e0be40:   78116800 77e0bf50 77e0be88 b68ca10a
+0x77e0be50:   09ae3008 09c22c68 b6e18ecb b68d5438
+0x77e0be60:   b68d5320 77e0bebb 77e0be88 b68c8846
+0x77e0be70:   09ae3008 6c706d49 77e0bebb b68d5438
+0x77e0be80:   6c706d49 77e0bf50 77e0bec8 b68a1874 
+
+Instructions: (pc=0xb6e18fd0)
+0xb6e18fc0:   a3 02 00 00 8b 45 0c 31 f6 85 c0 74 1a 8b 4d 0c
+0xb6e18fd0:   8b 01 85 c0 0f 84 86 02 00 00 89 c6 3d fe fe fe 
+
+Stack: [0x77dbc000,0x77e0d000],  sp=0x77e0be10,  free space=319k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x473fd0]
+C  [libjdwp.so+0x2d846]
+C  [libjdwp.so+0x6874]
+C  [libjdwp.so+0x6a73]
+C  [libjdwp.so+0x6b20]
+C  [libjdwp.so+0x13143]
+C  [libjdwp.so+0x27fd5]
+C  [libjdwp.so+0x282d3]
+V  [libjvm.so+0x4e4db9]
+V  [libjvm.so+0x6c604f]
+V  [libjvm.so+0x5c6a6e]
+C  [libpthread.so.0+0x5e99]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x7815bc00 JavaThread "Thread-3" [_thread_blocked, id=10221, stack(0x77a02000,0x77a53000)]
+  0x7813d400 JavaThread "Thread-2" [_thread_blocked, id=10220, stack(0x77a53000,0x77aa4000)]
+  0x7813c000 JavaThread "Thread-1" [_thread_blocked, id=10219, stack(0x77aa4000,0x77af5000)]
+  0x7813b800 JavaThread "Thread-0" [_thread_blocked, id=10218, stack(0x77af5000,0x77b46000)]
+  0x78128000 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=10203, stack(0x77bc7000,0x77c18000)]
+  0x78126000 JavaThread "CompilerThread1" daemon [_thread_blocked, id=10202, stack(0x77c18000,0x77c99000)]
+  0x78124000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=10201, stack(0x77c99000,0x77d1a000)]
+  0x09b8e000 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=10199, stack(0x77d1a000,0x77d6b000)]
+  0x78118c00 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=10198, stack(0x77d6b000,0x77dbc000)]
+=>0x78116800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_vm, id=10195, stack(0x77dbc000,0x77e0d000)]
+  0x7810e400 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=10193, stack(0x77e11000,0x77e62000)]
+  0x78100800 JavaThread "Finalizer" daemon [_thread_blocked, id=10192, stack(0x7822e000,0x7827f000)]
+  0x09b88800 JavaThread "Reference Handler" daemon [_thread_blocked, id=10191, stack(0x77e62000,0x77eb3000)]
+  0x09ae6400 JavaThread "main" [_thread_blocked, id=10185, stack(0xb692e000,0xb697f000)]
+
+Other Threads:
+  0x09b84c00 VMThread [stack: 0x77eb3000,0x77f34000] [id=10190]
+  0x7812a000 WatcherThread [stack: 0x77b46000,0x77bc7000] [id=10204]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 16384K, used 2029K [0xa1100000, 0xa2340000, 0xb35a0000)
+  eden space 14080K, 14% used [0xa1100000,0xa12fb448,0xa1ec0000)
+  from space 2304K, 0% used [0xa2100000,0xa2100000,0xa2340000)
+  to   space 2304K, 0% used [0xa1ec0000,0xa1ec0000,0xa2100000)
+ PSOldGen        total 37440K, used 0K [0x7c7a0000, 0x7ec30000, 0xa1100000)
+  object space 37440K, 0% used [0x7c7a0000,0x7c7a0000,0x7ec30000)
+ PSPermGen       total 16384K, used 2367K [0x787a0000, 0x797a0000, 0x7c7a0000)
+  object space 16384K, 14% used [0x787a0000,0x789efdf0,0x797a0000)
+
+Dynamic libraries:
+08048000-08052000 r-xp 00000000 08:01 1060854    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/bin/java
+08052000-08053000 rwxp 00009000 08:01 1060854    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/bin/java
+09ade000-09d52000 rwxp 00000000 00:00 0          [heap]
+77a02000-77a05000 ---p 00000000 00:00 0 
+77a05000-77a53000 rwxp 00000000 00:00 0 
+77a53000-77a56000 ---p 00000000 00:00 0 
+77a56000-77aa4000 rwxp 00000000 00:00 0 
+77aa4000-77aa7000 ---p 00000000 00:00 0 
+77aa7000-77af5000 rwxp 00000000 00:00 0 
+77af5000-77af8000 ---p 00000000 00:00 0 
+77af8000-77b46000 rwxp 00000000 00:00 0 
+77b46000-77b47000 ---p 00000000 00:00 0 
+77b47000-77bc7000 rwxp 00000000 00:00 0 
+77bc7000-77bca000 ---p 00000000 00:00 0 
+77bca000-77c18000 rwxp 00000000 00:00 0 
+77c18000-77c1b000 ---p 00000000 00:00 0 
+77c1b000-77c99000 rwxp 00000000 00:00 0 
+77c99000-77c9c000 ---p 00000000 00:00 0 
+77c9c000-77d1a000 rwxp 00000000 00:00 0 
+77d1a000-77d1d000 ---p 00000000 00:00 0 
+77d1d000-77d6b000 rwxp 00000000 00:00 0 
+77d6b000-77d6e000 ---p 00000000 00:00 0 
+77d6e000-77dbc000 rwxp 00000000 00:00 0 
+77dbc000-77dbf000 ---p 00000000 00:00 0 
+77dbf000-77e0d000 rwxp 00000000 00:00 0 
+77e0d000-77e10000 r-xp 00000000 08:01 1187221    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libdt_socket.so
+77e10000-77e11000 rwxp 00003000 08:01 1187221    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libdt_socket.so
+77e11000-77e14000 ---p 00000000 00:00 0 
+77e14000-77e62000 rwxp 00000000 00:00 0 
+77e62000-77e65000 ---p 00000000 00:00 0 
+77e65000-77eb3000 rwxp 00000000 00:00 0 
+77eb3000-77eb4000 ---p 00000000 00:00 0 
+77eb4000-77f68000 rwxp 00000000 00:00 0 
+77f68000-78100000 r-xs 03027000 08:01 1060884    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/rt.jar
+78100000-7816c000 rwxp 00000000 00:00 0 
+7816c000-78200000 ---p 00000000 00:00 0 
+78217000-78219000 r-xs 00001000 08:01 1056794    /home/kitchen/.m2/repository/cx/ath/matthews/unix/unix/0.5/unix-0.5.jar
+78219000-78222000 r-xs 0006d000 08:01 1588233    /home/kitchen/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar
+78222000-78226000 r-xs 0001f000 08:01 1187552    /home/kitchen/.m2/repository/junit/junit-dep/4.4/junit-dep-4.4.jar
+78226000-7822c000 r-xs 00034000 08:01 1187521    /home/kitchen/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar
+7822c000-7822e000 r-xs 0000a000 08:01 1062082    /home/kitchen/.m2/repository/org/json/json/20090211/json-20090211.jar
+7822e000-78231000 ---p 00000000 00:00 0 
+78231000-7827f000 rwxp 00000000 00:00 0 
+7827f000-78280000 ---p 00000000 00:00 0 
+78280000-78300000 rwxp 00000000 00:00 0 
+78300000-78301000 ---p 00000000 00:00 0 
+78301000-78381000 rwxp 00000000 00:00 0 
+78381000-78382000 ---p 00000000 00:00 0 
+78382000-78402000 rwxp 00000000 00:00 0 
+78402000-78403000 ---p 00000000 00:00 0 
+78403000-7848b000 rwxp 00000000 00:00 0 
+7848b000-784a3000 rwxp 00000000 00:00 0 
+784a3000-784b6000 rwxp 00000000 00:00 0 
+784b6000-785c8000 rwxp 00000000 00:00 0 
+785c8000-785d0000 rwxp 00000000 00:00 0 
+785d0000-785e8000 rwxp 00000000 00:00 0 
+785e8000-785fb000 rwxp 00000000 00:00 0 
+785fb000-7870c000 rwxp 00000000 00:00 0 
+7870c000-78716000 rwxp 00000000 00:00 0 
+78716000-7879f000 rwxp 00000000 00:00 0 
+7879f000-797a0000 rwxp 00000000 00:00 0 
+797a0000-7c7a0000 rwxp 00000000 00:00 0 
+7c7a0000-7ec30000 rwxp 00000000 00:00 0 
+7ec30000-a1100000 rwxp 00000000 00:00 0 
+a1100000-a2340000 rwxp 00000000 00:00 0 
+a2340000-b35a0000 rwxp 00000000 00:00 0 
+b35a0000-b35a9000 rwxp 00000000 00:00 0 
+b35a9000-b3660000 rwxp 00000000 00:00 0 
+b3660000-b38a0000 rwxp 00000000 00:00 0 
+b38a0000-b6660000 rwxp 00000000 00:00 0 
+b6660000-b666f000 r-xp 00000000 08:01 1187196    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libzip.so
+b666f000-b6671000 rwxp 0000e000 08:01 1187196    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libzip.so
+b6671000-b667b000 r-xp 00000000 08:01 131697     /lib/i386-linux-gnu/libnss_files-2.13.so
+b667b000-b667c000 r-xp 00009000 08:01 131697     /lib/i386-linux-gnu/libnss_files-2.13.so
+b667c000-b667d000 rwxp 0000a000 08:01 131697     /lib/i386-linux-gnu/libnss_files-2.13.so
+b667d000-b6686000 r-xp 00000000 08:01 131701     /lib/i386-linux-gnu/libnss_nis-2.13.so
+b6686000-b6687000 r-xp 00008000 08:01 131701     /lib/i386-linux-gnu/libnss_nis-2.13.so
+b6687000-b6688000 rwxp 00009000 08:01 131701     /lib/i386-linux-gnu/libnss_nis-2.13.so
+b6688000-b668a000 r-xs 00001000 08:01 1586414    /home/kitchen/.m2/repository/org/jmock/jmock-junit4/2.5.1/jmock-junit4-2.5.1.jar
+b668a000-b668d000 r-xs 0001f000 08:01 1586410    /home/kitchen/.m2/repository/org/jmock/jmock/2.5.1/jmock-2.5.1.jar
+b668d000-b668e000 r-xs 00000000 08:01 1048545    /home/kitchen/.m2/repository/cx/ath/matthews/utils/hexdump/0.2/hexdump-0.2.jar
+b668e000-b6691000 r-xs 00019000 08:01 1586412    /home/kitchen/.m2/repository/org/hamcrest/hamcrest-library/1.1/hamcrest-library-1.1.jar
+b6691000-b6693000 r-xs 00011000 08:01 1586376    /home/kitchen/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar
+b6693000-b669b000 rwxs 00000000 08:01 1573000    /tmp/hsperfdata_kitchen/10179
+b669b000-b689b000 r-xp 00000000 08:01 269047     /usr/lib/locale/locale-archive
+b689b000-b68d5000 r-xp 00000000 08:01 1187222    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libjdwp.so
+b68d5000-b68d6000 rwxp 00039000 08:01 1187222    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libjdwp.so
+b68d6000-b68e9000 r-xp 00000000 08:01 131691     /lib/i386-linux-gnu/libnsl-2.13.so
+b68e9000-b68ea000 r-xp 00012000 08:01 131691     /lib/i386-linux-gnu/libnsl-2.13.so
+b68ea000-b68eb000 rwxp 00013000 08:01 131691     /lib/i386-linux-gnu/libnsl-2.13.so
+b68eb000-b68ed000 rwxp 00000000 00:00 0 
+b68ed000-b68f1000 r-xs 00022000 08:01 1188566    /home/kitchen/.m2/repository/org/freedesktop/dbus/dbus-java/2.8/dbus-java-2.8.jar
+b68f1000-b68f7000 r-xp 00000000 08:01 131693     /lib/i386-linux-gnu/libnss_compat-2.13.so
+b68f7000-b68f8000 r-xp 00005000 08:01 131693     /lib/i386-linux-gnu/libnss_compat-2.13.so
+b68f8000-b68f9000 rwxp 00006000 08:01 131693     /lib/i386-linux-gnu/libnss_compat-2.13.so
+b68f9000-b68ff000 r-xp 00000000 08:01 1330940    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/native_threads/libhpi.so
+b68ff000-b6900000 rwxp 00006000 08:01 1330940    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/native_threads/libhpi.so
+b6900000-b6923000 r-xp 00000000 08:01 1187191    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libjava.so
+b6923000-b6925000 rwxp 00023000 08:01 1187191    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libjava.so
+b6925000-b692c000 r-xp 00000000 08:01 131720     /lib/i386-linux-gnu/librt-2.13.so
+b692c000-b692d000 r-xp 00006000 08:01 131720     /lib/i386-linux-gnu/librt-2.13.so
+b692d000-b692e000 rwxp 00007000 08:01 131720     /lib/i386-linux-gnu/librt-2.13.so
+b692e000-b6931000 ---p 00000000 00:00 0 
+b6931000-b697f000 rwxp 00000000 00:00 0 
+b697f000-b69a3000 r-xp 00000000 08:01 131688     /lib/i386-linux-gnu/libm-2.13.so
+b69a3000-b69a4000 r-xp 00023000 08:01 131688     /lib/i386-linux-gnu/libm-2.13.so
+b69a4000-b69a5000 rwxp 00024000 08:01 131688     /lib/i386-linux-gnu/libm-2.13.so
+b69a5000-b7132000 r-xp 00000000 08:01 1330938    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/server/libjvm.so
+b7132000-b7185000 rwxp 0078d000 08:01 1330938    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/server/libjvm.so
+b7185000-b75a4000 rwxp 00000000 00:00 0 
+b75a4000-b76fe000 r-xp 00000000 08:01 131651     /lib/i386-linux-gnu/libc-2.13.so
+b76fe000-b76ff000 ---p 0015a000 08:01 131651     /lib/i386-linux-gnu/libc-2.13.so
+b76ff000-b7701000 r-xp 0015a000 08:01 131651     /lib/i386-linux-gnu/libc-2.13.so
+b7701000-b7702000 rwxp 0015c000 08:01 131651     /lib/i386-linux-gnu/libc-2.13.so
+b7702000-b7705000 rwxp 00000000 00:00 0 
+b7705000-b7707000 r-xp 00000000 08:01 131661     /lib/i386-linux-gnu/libdl-2.13.so
+b7707000-b7708000 r-xp 00001000 08:01 131661     /lib/i386-linux-gnu/libdl-2.13.so
+b7708000-b7709000 rwxp 00002000 08:01 131661     /lib/i386-linux-gnu/libdl-2.13.so
+b7709000-b7710000 r-xp 00000000 08:01 1330930    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/jli/libjli.so
+b7710000-b7712000 rwxp 00006000 08:01 1330930    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/jli/libjli.so
+b7712000-b7713000 rwxp 00000000 00:00 0 
+b7713000-b7728000 r-xp 00000000 08:01 131716     /lib/i386-linux-gnu/libpthread-2.13.so
+b7728000-b7729000 r-xp 00015000 08:01 131716     /lib/i386-linux-gnu/libpthread-2.13.so
+b7729000-b772a000 rwxp 00016000 08:01 131716     /lib/i386-linux-gnu/libpthread-2.13.so
+b772a000-b772c000 rwxp 00000000 00:00 0 
+b772c000-b772d000 r-xp 002a1000 08:01 269047     /usr/lib/locale/locale-archive
+b772d000-b7730000 r-xp 00000000 08:01 1187190    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libnpt.so
+b7730000-b7731000 rwxp 00002000 08:01 1187190    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libnpt.so
+b7731000-b7732000 rwxp 00000000 00:00 0 
+b7732000-b7733000 r-xp 00000000 00:00 0 
+b7733000-b773e000 r-xp 00000000 08:01 1187213    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libverify.so
+b773e000-b773f000 rwxp 0000b000 08:01 1187213    /usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/libverify.so
+b773f000-b7741000 rwxp 00000000 00:00 0 
+b7741000-b7742000 r-xp 00000000 00:00 0          [vdso]
+b7742000-b775e000 r-xp 00000000 08:01 131638     /lib/i386-linux-gnu/ld-2.13.so
+b775e000-b775f000 r-xp 0001b000 08:01 131638     /lib/i386-linux-gnu/ld-2.13.so
+b775f000-b7760000 rwxp 0001c000 08:01 131638     /lib/i386-linux-gnu/ld-2.13.so
+bfc69000-bfc8a000 rwxp 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:58379 -Dfile.encoding=UTF-8 
+java_command: net.tux.mediaplayer.TestMediaPlayerControl
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/home/kitchen/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/server:/usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386:/usr/lib/jvm/java-6-sun-1.6.0.24/jre/../lib/i386:/usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386/client:/usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386:
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x708f80], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x708f80], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x5c4100], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x5c4100], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x5c4100], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x5c4100], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x5c70e0], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x5c6cc0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x5c6cc0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x5c6cc0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x5c6cc0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:squeeze/sid
+
+uname:Linux 2.6.38-8-generic-pae #42-Ubuntu SMP Mon Apr 11 05:17:09 UTC 2011 i686
+libc:glibc 2.13 NPTL 2.13 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 4096, AS infinity
+load average:1.24 1.20 1.15
+
+/proc/meminfo:
+MemTotal:        3591912 kB
+MemFree:          133012 kB
+Buffers:           77484 kB
+Cached:          1108860 kB
+SwapCached:           40 kB
+Active:          1971588 kB
+Inactive:        1328400 kB
+Active(anon):    1640396 kB
+Inactive(anon):   483740 kB
+Active(file):     331192 kB
+Inactive(file):   844660 kB
+Unevictable:           4 kB
+Mlocked:               4 kB
+HighTotal:       2755528 kB
+HighFree:           6196 kB
+LowTotal:         836384 kB
+LowFree:          126816 kB
+SwapTotal:       3665916 kB
+SwapFree:        3665656 kB
+Dirty:               488 kB
+Writeback:             0 kB
+AnonPages:       2113972 kB
+Mapped:           163764 kB
+Shmem:             10128 kB
+Slab:              54948 kB
+SReclaimable:      32400 kB
+SUnreclaim:        22548 kB
+KernelStack:        4896 kB
+PageTables:        19792 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     5461872 kB
+Committed_AS:    6203652 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       82324 kB
+VmallocChunk:      28156 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:       73720 kB
+DirectMap2M:      839680 kB
+
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 3591912k(133012k free), swap 3665916k(3665656k free)
+
+vm_info: Java HotSpot(TM) Server VM (19.1-b02) for linux-x86 JRE (1.6.0_24-b07), built on Feb  2 2011 16:51:52 by "java_re" with gcc 3.2.1-7a (J2SE release)
+
+time: Mon May 16 16:19:23 2011
+elapsed time: 81 seconds
+

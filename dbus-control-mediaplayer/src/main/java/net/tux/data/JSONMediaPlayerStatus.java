@@ -3,20 +3,24 @@ package net.tux.data;
 import java.util.Iterator;
 import java.util.Map;
 
+import net.tux.config.Constants;
+
 import org.freedesktop.dbus.Variant;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONMediaPlayerStatus {
-	//private DBusMediaPlayer player;
 	private String id;
 	private Map<String, Variant> metadata;
 
-	public JSONMediaPlayerStatus(/*DBusMediaPlayer player*/ String id, Map<String, Variant> metadata) {
-		//this.player = player;
+	public JSONMediaPlayerStatus(String id, Map<String, Variant> metadata) {
 		this.id = id;
 		this.metadata = metadata;
+	}
+
+	public JSONMediaPlayerStatus(MediaPlayerStatus playerStatus) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String JSONStatus() {
@@ -30,8 +34,10 @@ public class JSONMediaPlayerStatus {
 			while (iter.hasNext()) {
 				String key = (String) iter.next();
 				Object thisValue = metadata.get(key);
-				System.out.println(key + " " + thisValue);
-	
+				if(Constants.DEBUG) 
+				{
+					System.out.println(key + " " + thisValue);
+				}
 				JSONObject ci = new JSONObject();
 				ci.put(key, thisValue);
 				itemList.put(ci);
@@ -39,10 +45,8 @@ public class JSONMediaPlayerStatus {
 	
 			// create a JSONObject to hold relevant info for the status of the player
 			jsonObj.put("playerId", id);
-	//		jsonObj.put("playerRunning", player.isPlayerRunning());
 			jsonObj.put("itemList", itemList);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

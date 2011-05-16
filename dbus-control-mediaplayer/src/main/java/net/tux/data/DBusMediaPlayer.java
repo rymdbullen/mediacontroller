@@ -1,6 +1,7 @@
 package net.tux.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -17,13 +18,13 @@ import org.mpris.MediaPlayer2.Player;
 public class DBusMediaPlayer {
 	private String playerId;
 	private String playerTune;
-	private static boolean debug = false;
 	private static String currentServiceBusName = null;
 	
 	private ArrayList<String> activePlayers = new ArrayList<String>();
 	
 	private static Player playerSpotify;
 	private static Player player;
+	private static String[] playerIds = new String[] {Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE, Constants.DBUS_SERVICE_BUS_NAME_SPOTIFY};;
 	
 	/**
 	 * 
@@ -36,12 +37,12 @@ public class DBusMediaPlayer {
 		ArrayList<Player> activePlayers = new ArrayList<Player>();
 		try {
 			conn = DBusConnection.getConnection(DBusConnection.SESSION);
-			player = conn.getRemoteObject(Constants.serviceBusNameClementine, Constants.objectPath, Player.class);
+			player = conn.getRemoteObject(Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE, Constants.DBUS_OBJECT_PATH_ORG_MPRIS_MEDIAPLAYER2, Player.class);
 			if(player != null) {
 				System.out.println("clementine active");
 				activePlayers.add(player);
 			}
-			playerSpotify = conn.getRemoteObject(Constants.serviceBusNameSpotify, Constants.objectPath, Player.class);
+			playerSpotify = conn.getRemoteObject(Constants.DBUS_SERVICE_BUS_NAME_SPOTIFY, Constants.DBUS_OBJECT_PATH_ORG_MPRIS_MEDIAPLAYER2, Player.class);
 			if(playerSpotify != null) {
 				System.out.println("spotify active");
 				activePlayers.add(playerSpotify);
@@ -103,16 +104,40 @@ public class DBusMediaPlayer {
 	 * 
 	 * @return
 	 */
+	public static Map<String, JSONMediaPlayerStatus> getJSONStatuses() {
+		
+		HashMap<String, JSONMediaPlayerStatus> getJSONStatuses = new HashMap<String, JSONMediaPlayerStatus>(0);
+		
+		for (int i = 0; i < playerIds.length; i++) {
+			String playerId = playerIds[i];
+			MediaPlayerStatus playerStatus = new MediaPlayerStatus(playerId);
+//			JSONMediaPlayerStatus getJSONStatus = new JSONMediaPlayerStatus(playerStatus);
+			JSONMediaPlayerStatus getJSONStatus = getJSONStatus();
+			if(getJSONStatus!=null) {
+				getJSONStatuses.put(playerId, getJSONStatus);
+			}
+		}
+		if(getJSONStatuses.keySet().size()==0) {
+			System.out.println("Failed to locate any players");
+		}
+		return getJSONStatuses;
+	}
+		
+	/**
+	 * 
+	 * @return
+	 * @deprecated use getJSONStatuses
+	 */
 	public static JSONMediaPlayerStatus getJSONStatus() {
 		String propertyName = "Metadata";
 		Object value = null;
 		
-		currentServiceBusName = Constants.serviceBusNameClementine;
+		currentServiceBusName = Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE;
 		value = getPropertyValue(currentServiceBusName, propertyName);
 		if(value == null) 
 		{
 			System.out.println("failed to locate clementine");
-			currentServiceBusName = Constants.serviceBusNameSpotify;
+			currentServiceBusName = Constants.DBUS_SERVICE_BUS_NAME_SPOTIFY;
 			value = getPropertyValue(currentServiceBusName, propertyName);
 			if(value == null) 
 			{
@@ -132,15 +157,6 @@ public class DBusMediaPlayer {
 			}
 			else
 			{
-				if(debug) {
-					// debug code, printing all properties
-					Iterator<String> iter = allMetadata.keySet().iterator();
-					while (iter.hasNext()) {
-						String key = (String) iter.next();
-						Object thisValue = allMetadata.get(key);
-						System.out.println(key+" "+thisValue);
-					}
-				}
 				JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(currentServiceBusName, allMetadata);
 				return status;
 			}
@@ -158,9 +174,9 @@ public class DBusMediaPlayer {
 		DBusConnection conn = null;
 		try {
 			conn = DBusConnection.getConnection(DBusConnection.SESSION);
-			DBus.Properties props = conn.getRemoteObject(serviceBusName, Constants.objectPath, DBus.Properties.class);
+			DBus.Properties props = conn.getRemoteObject(serviceBusName, Constants.DBUS_OBJECT_PATH_ORG_MPRIS_MEDIAPLAYER2, DBus.Properties.class);
 
-			Map<String, Variant> allProperties = props.GetAll(Constants.interfaceName);
+			Map<String, Variant> allProperties = props.GetAll(Constants.DBUS_INTERFACE_NAME_ORG_MPRIS_MEDIAPLAYER);
 			Variant property = allProperties.get(propertyName);
 			
 			return property.getValue();

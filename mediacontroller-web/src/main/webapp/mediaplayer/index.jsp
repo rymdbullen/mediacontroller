@@ -55,8 +55,6 @@
 						                <td>
 						                    <div class="buttons"><stripes:submit name="start" value="Start"
 						                        onclick="invoke(this.form, this.name);"/></div>
-						                </td>
-						                <td>
 						                    <div class="buttons"><stripes:submit name="stop" value="Stop"
 						                        onclick="invoke(this.form, this.name);"/></div>
 						                </td>

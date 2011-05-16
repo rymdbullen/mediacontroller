@@ -1,15 +1,25 @@
 package net.tux.mediaplayer;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import org.json.JSONException;
 
 import net.tux.data.DBusMediaPlayer;
 import net.tux.data.JSONMediaPlayerStatus;
 
-public class MediaPlayerControl {
+public class TestMediaPlayerControl {
 
-	private static boolean debug = false;
-	
-	public static void main(String[] args) throws JSONException {	
+	public static void main(String[] args) throws JSONException {
+		Map<String, JSONMediaPlayerStatus> jsonStatuses = DBusMediaPlayer.getJSONStatuses();
+		Iterator<String> iter = jsonStatuses.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = (String) iter.next();
+			JSONMediaPlayerStatus status = jsonStatuses.get(key);
+			System.out.println("status: "+status.JSONStatus());
+		}
+		
+		/*
 		JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus();
 		if(jsonStatus==null) {
 			System.out.println("not playing");
@@ -23,5 +33,6 @@ public class MediaPlayerControl {
 			DBusMediaPlayer.playPause();
 			System.out.println("not playing anymore");
 		}
+		*/
 	}
 }
