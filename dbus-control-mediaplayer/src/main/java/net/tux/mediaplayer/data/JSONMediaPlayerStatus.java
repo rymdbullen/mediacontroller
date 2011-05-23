@@ -1,16 +1,19 @@
-package net.tux.data;
+package net.tux.mediaplayer.data;
 
 import java.util.Iterator;
 import java.util.Map;
 
-import net.tux.config.Constants;
+import net.tux.mediaplayer.config.Constants;
 
+import org.apache.log4j.Logger;
 import org.freedesktop.dbus.Variant;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONMediaPlayerStatus {
+	Logger logger = Logger.getLogger(JSONMediaPlayerStatus.class);
+	
 	private String id;
 	private Map<String, Variant> metadata;
 
@@ -20,7 +23,13 @@ public class JSONMediaPlayerStatus {
 	}
 
 	public JSONMediaPlayerStatus(MediaPlayerStatus playerStatus) {
-		// TODO Auto-generated constructor stub
+		this.id = playerStatus.getId();
+		this.metadata = playerStatus.getMetadata();
+	}
+
+	public JSONMediaPlayerStatus(Map<String, MediaPlayerStatus> status) {
+		Iterator<String> keySetIter = status.keySet().iterator();
+		
 	}
 
 	public String JSONStatus() {
@@ -34,9 +43,9 @@ public class JSONMediaPlayerStatus {
 			while (iter.hasNext()) {
 				String key = (String) iter.next();
 				Object thisValue = metadata.get(key);
-				if(Constants.DEBUG) 
+				if(Constants.DEBUG)
 				{
-					System.out.println(key + " " + thisValue);
+					logger.debug(key + " " + thisValue);
 				}
 				JSONObject ci = new JSONObject();
 				ci.put(key, thisValue);
@@ -47,10 +56,18 @@ public class JSONMediaPlayerStatus {
 			jsonObj.put("playerId", id);
 			jsonObj.put("itemList", itemList);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			logger.debug("Failed to create JSON object for: "+id+ ": "+metadata);
 		}
 
 		// return the object as a JSON String
 		return jsonObj.toString();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public Map<String, Variant> getMetadata() {
+		return metadata;
 	}
 }

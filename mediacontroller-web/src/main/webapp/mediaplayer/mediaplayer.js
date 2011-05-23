@@ -21,6 +21,8 @@
 //alert(json ? Object.inspect(json) : "no JSON object");
     	    var node = $("playerId");
     	    node.innerHTML = json.playerId;
+    	    var node2 = $("janne")
+    	    node2.value = json.playerId;
     	    
     	    /* */
     	    var html = '<ul>';
@@ -29,11 +31,11 @@
     	    		continue;
     	    	}
     	        for(var key2 in (obj = json.itemList[key]))
-    	            {
-    	                //obj holds the current object in the json array
-//alert(key2+' '+obj[key2]);
+    	        {
+    	                // obj holds the current object in the json array
 						html += "<li>" + key2 + " " + obj[key2] + "</li>";
-    	            }
+//alert(key2+' '+obj[key2]);
+    	        }
     	    }
     	    html += '</ul>'
 			var node2 = $("playing");
@@ -41,7 +43,7 @@
     	  },
     	  onFailure: function() {
     		  var node = $("playerId");
-    		  node.innerHTML = '<style="font:red>No player running</style>';
+    		  node.innerHTML = '<font color="red">Error while getting dbus info</font>';
     	  }
     	});
   }

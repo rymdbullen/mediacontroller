@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
 
-import net.tux.data.DBusMediaPlayer;
+import net.tux.mediaplayer.data.DBusMediaPlayer;
 
 /**
  * Maintains an in memory list of players in the system.

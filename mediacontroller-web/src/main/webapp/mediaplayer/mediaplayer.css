@@ -4,7 +4,7 @@
  */
 
 /** Set the default padding and margin for block level elements to be zero everywhere. */
-body, div, dd, dt, dl, img, table, tr, td, h1, h2, h3, h4, h5, form, hr, fieldset {
+body, div, dd, dt, dl, img, table, tr, td, h1, h2, h3, h4, h5, form, hr, fieldset, input {
 	margin: 0px;
 	padding: 0px;
 }
@@ -24,9 +24,11 @@ body {
 /* Style used to display the page header. */
 #imageHeader {
     margin: 0px;
-    background-image: url("bug.png");
-    height: 197px;
-    width: 775px;
+    background-image: url("images/android_music_player_icon.jpg");
+    height: 500px;
+    width: 500px;
+    opacity:0.4;
+    filter:alpha(opacity=40);
 }
 
 #pageHeader {
@@ -182,3 +184,71 @@ label.error {
     color: #b72222;
     border-bottom: 1px dashed #b72222;
 }
+
+
+div#clear {
+	clear:both;	
+}
+
+div#controls {
+	float:left;
+	width: 40px;
+    background-color: black;
+}
+
+div#controlsArea {
+	width: 200px;
+    background-color: black;
+}
+
+a#buttonForward {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url(images/forward_75.png);
+    margin: 0 auto;
+}
+a#buttonForward:hover {
+    background-image: url(images/forward-hover_79.png);
+}
+a#buttonBack {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url(images/fastback_95.png);
+    margin: 0 auto;
+}
+a#buttonBack:hover {
+    background-image: url(images/fastback-hover_97.png);
+}
+a#buttonNext {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url(images/next_73.png);
+    margin: 0 auto;
+}
+a#buttonNext:hover {
+    background-image: url(images/next-hover_77.png);
+}
+a#buttonPlay {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url(images/play_73.png);
+    margin: 0 auto;
+}
+a#buttonPlay:hover {
+    background-image: url(images/play-hover_77.png);
+}
+a#buttonStop {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: url(images/stop_73.png);
+    margin: 0 auto;
+}
+a#buttonStop:hover {
+    background-image: url(images/stop-hover_77.png);
+}
+a .alt { display: none; }

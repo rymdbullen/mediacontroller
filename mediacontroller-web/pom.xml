@@ -130,6 +130,27 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>org.springframework.web</artifactId>
 			<version>${spring.version}</version>
@@ -168,6 +189,12 @@
 			<groupId>net.sourceforge.stripes</groupId>
 			<artifactId>stripes</artifactId>
 			<version>${stripes.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -322,16 +349,17 @@
 	</profiles>
 	
 	<properties>
-		<!-- Test dependency versions -->
-		<jwebunit.version>2.5</jwebunit.version>
-		<jetty.version>6.1.26</jetty.version>
-
+		<org.slf4j.version>1.6.1</org.slf4j.version>
 		<taglibs.standard.version>1.1.2</taglibs.standard.version>
 		<javax.servlet.jstl.version>1.1.2</javax.servlet.jstl.version>
 		<javax.servlet.servlet-api.version>2.5</javax.servlet.servlet-api.version>
 		<javax.servlet.jsp-api.version>2.2</javax.servlet.jsp-api.version>
 		<org.apache.tomcat.catalina.version>6.0.32</org.apache.tomcat.catalina.version>
 
+		<!-- Test dependency versions -->
+		<jwebunit.version>2.5</jwebunit.version>
+		<jetty.version>6.1.26</jetty.version>
+		
 		<!-- Cargo settings -->
 		<cargo.version>1.0.6</cargo.version>
 		<cargo.container>tomcat6x</cargo.container>

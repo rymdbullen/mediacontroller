@@ -56,7 +56,6 @@
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
     <attributes>
       <attribute value="jar:file:/home/kitchen/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" name="javadoc_location"/>
-      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/net/sourceforge/cssparser/cssparser/0.9.5/cssparser-0.9.5.jar" sourcepath="M2_REPO/net/sourceforge/cssparser/cssparser/0.9.5/cssparser-0.9.5-sources.jar"/>
@@ -99,6 +98,7 @@
   <classpathentry kind="var" path="M2_REPO/org/slf4j/jcl-over-slf4j/1.6.1/jcl-over-slf4j-1.6.1.jar" sourcepath="M2_REPO/org/slf4j/jcl-over-slf4j/1.6.1/jcl-over-slf4j-1.6.1-sources.jar">
     <attributes>
       <attribute value="jar:file:/home/kitchen/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.1/jcl-over-slf4j-1.6.1-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/jmock/jmock/2.5.1/jmock-2.5.1.jar" sourcepath="M2_REPO/org/jmock/jmock/2.5.1/jmock-2.5.1-sources.jar">
@@ -189,8 +189,9 @@
       <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.4.2/slf4j-log4j12-1.4.2.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.4.2/slf4j-log4j12-1.4.2-sources.jar">
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-sources.jar">
     <attributes>
+      <attribute value="jar:file:/home/kitchen/.m2/repository/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1-javadoc.jar!/" name="javadoc_location"/>
       <attribute value="/WEB-INF/lib" name="org.eclipse.jst.component.dependency"/>
     </attributes>
   </classpathentry>

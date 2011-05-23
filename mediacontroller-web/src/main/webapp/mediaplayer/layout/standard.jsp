@@ -17,7 +17,7 @@
                 </stripes:layout-component>
 
                 <div id="pageContent">
-                    <div class="sectionTitle">${title}</div>
+                    <h1 class="sectionTitle">${title}</h1>
                     <stripes:messages/>
                     <stripes:layout-component name="contents"/>
                 </div>

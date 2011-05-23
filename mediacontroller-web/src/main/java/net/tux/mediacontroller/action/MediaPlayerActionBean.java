@@ -10,13 +10,14 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationError;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
-import net.tux.data.DBusMediaPlayer;
-import net.tux.data.JSONMediaPlayerStatus;
+import net.tux.mediaplayer.data.DBusMediaPlayer;
+import net.tux.mediaplayer.data.JSONMediaPlayerStatus;
 
 import java.io.StringReader;
 import java.util.List;
+import java.util.Map;
 
-import org.json.JSONException;
+import org.apache.log4j.Logger;
 
 /**
  * A very simple calculator action that is designed to work with an ajax front end.
@@ -29,7 +30,9 @@ import org.json.JSONException;
  */
 @UrlBinding("/action/MediaPlayer.action")
 public class MediaPlayerActionBean implements ActionBean, ValidationErrorHandler {
+	private static Logger logger = Logger.getLogger(MediaPlayerActionBean.class);
     private ActionBeanContext context;
+    @Validate(required=true) private String playerId;
 
     public ActionBeanContext getContext() { return context; }
     public void setContext(ActionBeanContext context) { this.context = context; }
@@ -58,40 +61,60 @@ public class MediaPlayerActionBean implements ActionBean, ValidationErrorHandler
 
     /** Handles the 'playPause' event and returns the result. */
     public Resolution playPause() {
-    	String jsonText = DBusMediaPlayer.playPause().JSONStatus();
-        return new StreamingResolution("text", new StringReader(jsonText));
+    	JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(DBusMediaPlayer.playPause(playerId));
+		String jsonText = status.JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));
     }
 
     /** Handles the 'play' event and returns the result. */
     public Resolution play() {
-    	String jsonText = DBusMediaPlayer.play().JSONStatus();
+    	JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(DBusMediaPlayer.play(playerId));
+		String jsonText = status.JSONStatus();
     	return new StreamingResolution("text", new StringReader(jsonText));
     }
     
     /** Handles the 'stop' event and returns the result. */
     public Resolution stop() {
-    	String jsonText = DBusMediaPlayer.stop().JSONStatus();
+    	JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(DBusMediaPlayer.stop(playerId));
+		String jsonText = status.JSONStatus();
     	return new StreamingResolution("text", new StringReader(jsonText));
     }
     
     /** Handles the 'next' event and returns the result. */
     public Resolution next() {
-    	String jsonText = DBusMediaPlayer.next().JSONStatus();
-    	return new StreamingResolution("text", new StringReader(jsonText));
+    	JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(DBusMediaPlayer.next(playerId));
+		String jsonText = status.JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));    
     }
     
     /** Handles the 'previous' event and returns the result. */
     public Resolution previous() {
-    	String jsonText = DBusMediaPlayer.previous().JSONStatus();
-    	return new StreamingResolution("text", new StringReader(jsonText));
+    	JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(DBusMediaPlayer.previous(playerId));
+		String jsonText = status.JSONStatus();
+    	return new StreamingResolution("text", new StringReader(jsonText));    
     }
     
-    private String getStatus() {
-		JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus();
+    private String getStatuses() {
+    	if(playerId!=null && playerId.equals("unknown")) {
+    		//yadayada
+    	}
+		Map<String, JSONMediaPlayerStatus> jsonStatus = DBusMediaPlayer.getJSONStatuses();
 		if(jsonStatus==null) {
-			System.out.println("no og");
+			logger.debug("no og");
 			return "{\"playerId\", \"no player\"}";
 		}
-		return jsonStatus.JSONStatus().toString();
+		// XXX fix return value
+		return "jsonStatus.JSONStatus().toString()";
 	}
+    private String getStatus() {
+    	JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus(playerId);
+    	if(jsonStatus==null) {
+    		logger.debug("no og");
+    		return "{\"playerId\", \"no player\"}";
+    	}
+    	return jsonStatus.JSONStatus().toString();
+    }
+    // Standard getter and setter methods
+    public String getPlayerId() { return playerId; }
+    public void setPlayerId(String playerId) { logger.info(playerId); this.playerId = playerId; }
 }

@@ -1,4 +1,4 @@
-package net.tux.data;
+package net.tux.mediaplayer.data;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
