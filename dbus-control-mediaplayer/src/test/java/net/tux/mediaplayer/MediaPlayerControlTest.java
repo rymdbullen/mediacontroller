@@ -12,6 +12,7 @@ import org.junit.Test;
 import net.tux.mediaplayer.config.Constants;
 import net.tux.mediaplayer.data.DBusMediaPlayer;
 import net.tux.mediaplayer.data.JSONMediaPlayerStatus;
+import net.tux.mediaplayer.data.MediaPlayerStatus;
 
 public class MediaPlayerControlTest {
 	Logger logger = Logger.getLogger(MediaPlayerControlTest.class);
@@ -33,7 +34,9 @@ public class MediaPlayerControlTest {
 		while (iter.hasNext()) {
 			String key = (String) iter.next();
 			JSONMediaPlayerStatus status = jsonStatuses.get(key);
-			logger.debug("status: "+status.JSONStatus());
+			logger.debug(status.getPlayerStatus().getId()+": status: "+status.JSONStatus());
+			logger.debug(status.getPlayerStatus().getId()+": PlayBackStatus: "+status.getPlayerStatus().getPlaybackStatus());
+			logger.debug(status.getPlayerStatus().getId()+": NowPlaying: "+status.getPlayerStatus().getNowPlaying());
 		}
 	}
 /*
@@ -47,10 +50,18 @@ public class MediaPlayerControlTest {
     	logger.debug("status: "+jsonStatus.JSONStatus());
     }
     */
-    /*
     @Test
     public void testStartClementine() {
-    	DBusMediaPlayer.playPause(Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE);
+    	MediaPlayerStatus test = null;
+    	test = DBusMediaPlayer.getStatus(Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE);
+    	logger.debug(Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE + ": " + test.getPlaybackStatus());
+    	logger.debug(Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE + ": " + test.getMetadata());
+    	test = DBusMediaPlayer.getStatus(Constants.DBUS_SERVICE_BUS_NAME_SPOTIFY);
+    	logger.debug(Constants.DBUS_SERVICE_BUS_NAME_SPOTIFY + ": " + test.getPlaybackStatus());
+    	logger.debug(Constants.DBUS_SERVICE_BUS_NAME_SPOTIFY + ": " + test.getMetadata());
+
+//    	test = DBusMediaPlayer.playPause(Constants.DBUS_SERVICE_BUS_NAME_CLEMENTINE);
+//    	logger.debug(test.getPlaybackStatus());
+//    	logger.debug(test.getMetadata());
     }
- */  
 }

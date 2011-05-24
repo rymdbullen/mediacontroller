@@ -2,17 +2,19 @@
 
 <stripes:layout-render name="/mediaplayer/layout/standard.jsp" title="MediaPlayer Control">
     <stripes:layout-component name="contents">
-
             <script type="text/javascript" xml:space="preserve">
+			var index = 0;
             		function init2() {
-            			var node2 = $("janne")
+            			var node2 = $("janplaying")
             			//alert(node2);
-	            		pu = new Ajax.PeriodicalUpdater('playing', '/action/MediaPlayerStatus.action', {
-							method: 'get', 
-							frequency: 3, 
+	            		pu = new Ajax.PeriodicalUpdater('janplaying', '/action/MediaPlayerStatus.action', {
+							method: 'get',
+							frequency: 3,
 							decay: 2,
-							onSuccess : function(t) {
-								alert('hejsan: '+t);
+							onSuccess : function(jsonStatus) {
+								index = index +1;
+								//alert('hej ' + index + ' '+ jsonStatus.numPlayers);
+								node2.innerHTML = 'hej ' + index;
 							}
 						});
             		}
@@ -49,6 +51,7 @@
 		</div>
 		<div>
 		    <div>Playing:<div id="playing"></div></div>
+		    <div>JanPlaying:<div id="janplaying"></div></div>
 		</div>
 		
         <div class="buttons"><stripes:submit name="status" value="refresh"

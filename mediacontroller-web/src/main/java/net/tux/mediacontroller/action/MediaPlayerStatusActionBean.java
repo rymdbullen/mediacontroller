@@ -34,11 +34,12 @@ import org.json.JSONObject;
  *
  * @author Tim Fennell
  */
-@UrlBinding("/action/MediaPlayer.action")
+@UrlBinding("/action/MediaPlayerStatus.action")
 public class MediaPlayerStatusActionBean implements ActionBean, ValidationErrorHandler {
 	private static Logger logger = Logger.getLogger(MediaPlayerStatusActionBean.class);
     private ActionBeanContext context;
-    @Validate(required=true) private String activePlayerId;
+    //@Validate(required=true) private String activePlayerId;
+    private String activePlayerId;
     private ArrayList<String> availablePlayerIds = new ArrayList<String>(0);
 
     public ActionBeanContext getContext() { return context; }
@@ -63,6 +64,9 @@ public class MediaPlayerStatusActionBean implements ActionBean, ValidationErrorH
     @DefaultHandler 
     public Resolution getActivePlayers() {
         String jsonText = getJSONStatuses();
+        //if(Constants.DEBUG) {
+        	logger.debug(jsonText);
+        //}
 		return new StreamingResolution("text", new StringReader(jsonText));
     }
 

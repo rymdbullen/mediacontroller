@@ -134,8 +134,8 @@ public class DBusMediaPlayer {
 		{
 			String thisPlayerId = Constants.PLAYER_IDS[i];
 			MediaPlayerStatus getJSONStatus = getStatus(thisPlayerId);
-			if(getJSONStatus != null) {
-				if( getJSONStatus.getMetadata().size()>0) {
+			if(getJSONStatus.getId() != null) {
+				if(getJSONStatus.getMetadata().size()>0) {
 					statuses.put(thisPlayerId, getJSONStatus);
 				}
 			}
@@ -151,19 +151,19 @@ public class DBusMediaPlayer {
 	 * @return
 	 */
 	public static Map<String, JSONMediaPlayerStatus> getJSONStatuses() {
-		HashMap<String, JSONMediaPlayerStatus> getJSONStatuses = new HashMap<String, JSONMediaPlayerStatus>(0);
 		Map<String, MediaPlayerStatus> statuses = getStatuses();
-		
 		Iterator<String> keySetIter = statuses.keySet().iterator();
+		
+		HashMap<String, JSONMediaPlayerStatus> jsonStatuses = new HashMap<String, JSONMediaPlayerStatus>(0);
 		while (keySetIter.hasNext()) {
 			String key = (String) keySetIter.next();
-			getJSONStatuses.put(key, new JSONMediaPlayerStatus(statuses.get(key)));
+			jsonStatuses.put(key, new JSONMediaPlayerStatus(statuses.get(key)));
 		}
-		if(getJSONStatuses.keySet().size()==0) 
+		if(jsonStatuses.keySet().size()==0) 
 		{
 			logger.debug("Failed to locate any players");
 		}
-		return getJSONStatuses;
+		return jsonStatuses;
 	}
 	
 	/**
@@ -185,6 +185,9 @@ public class DBusMediaPlayer {
 	 * @return
 	 */
 	public static MediaPlayerStatus getStatus(String playerId) {
+		if(playerId==null) {
+			throw new IllegalArgumentException("playerId must not be null");
+		}
 		MediaPlayerStatus playerStatus = new MediaPlayerStatus(playerId);
 		return playerStatus;
 	}

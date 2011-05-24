@@ -23,6 +23,8 @@
     	    node.innerHTML = json.playerId;
     	    var node2 = $("janne")
     	    node2.value = json.playerId;
+    	    var node2 = $("isPlaying")
+    	    node2.value = json.isPlaying;
     	    
     	    /* */
     	    var html = '<ul>';
@@ -47,3 +49,4 @@
     	  }
     	});
   }
+

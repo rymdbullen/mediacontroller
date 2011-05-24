@@ -14,22 +14,15 @@ import org.json.JSONObject;
 public class JSONMediaPlayerStatus {
 	Logger logger = Logger.getLogger(JSONMediaPlayerStatus.class);
 	
-	private String id;
-	private Map<String, Variant> metadata;
-
+	private MediaPlayerStatus playerStatus;
+	
+	@SuppressWarnings("rawtypes")
 	public JSONMediaPlayerStatus(String id, Map<String, Variant> metadata) {
-		this.id = id;
-		this.metadata = metadata;
+		this.playerStatus = new MediaPlayerStatus(id);
 	}
 
 	public JSONMediaPlayerStatus(MediaPlayerStatus playerStatus) {
-		this.id = playerStatus.getId();
-		this.metadata = playerStatus.getMetadata();
-	}
-
-	public JSONMediaPlayerStatus(Map<String, MediaPlayerStatus> status) {
-		Iterator<String> keySetIter = status.keySet().iterator();
-		
+		this.playerStatus = playerStatus;
 	}
 
 	public String JSONStatus() {
@@ -39,10 +32,10 @@ public class JSONMediaPlayerStatus {
 			// create a JSONObject to hold relevant info for each item in cart and
 			// stuff all of these objects in a JSONArray
 			JSONArray itemList = new JSONArray();
-			Iterator<String> iter = metadata.keySet().iterator();
+			Iterator<String> iter = this.playerStatus.getMetadata().keySet().iterator();
 			while (iter.hasNext()) {
 				String key = (String) iter.next();
-				Object thisValue = metadata.get(key);
+				Object thisValue = this.playerStatus.getMetadata().get(key);
 				if(Constants.DEBUG)
 				{
 					logger.debug(key + " " + thisValue);
@@ -53,21 +46,18 @@ public class JSONMediaPlayerStatus {
 			}
 	
 			// create a JSONObject to hold relevant info for the status of the player
-			jsonObj.put("playerId", id);
+			jsonObj.put("playerId", this.playerStatus.getId());
+			jsonObj.put("nowPlaying", this.playerStatus.getNowPlaying());
 			jsonObj.put("itemList", itemList);
 		} catch (JSONException e) {
-			logger.debug("Failed to create JSON object for: "+id+ ": "+metadata);
+			logger.debug("Failed to create JSON object for: " + this.playerStatus.getId() + ": "+this.playerStatus.getMetadata());
 		}
 
 		// return the object as a JSON String
 		return jsonObj.toString();
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public Map<String, Variant> getMetadata() {
-		return metadata;
+	public MediaPlayerStatus getPlayerStatus() {
+		return playerStatus;
 	}
 }

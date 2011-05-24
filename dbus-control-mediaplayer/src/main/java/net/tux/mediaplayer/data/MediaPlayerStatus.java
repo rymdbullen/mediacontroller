@@ -13,12 +13,16 @@ import org.freedesktop.dbus.DBusConnection;
 import org.freedesktop.dbus.Variant;
 import org.freedesktop.dbus.exceptions.DBusException;
 
-public class MediaPlayerStatus {
+public class MediaPlayerStatus extends IStatus {
 	private static Logger logger = Logger.getLogger(MediaPlayerStatus.class);
-	private String id;
+	
 	@SuppressWarnings("rawtypes")
 	private Map<String, Variant> metadata = new HashMap<String, Variant>(0);
 
+	/**
+	 * Default constructor
+	 */
+	public MediaPlayerStatus() {}
 	/**
 	 * 
 	 * @return
@@ -27,6 +31,8 @@ public class MediaPlayerStatus {
 		for (int i = 0; i < serviceBusNames.length; i++) {
 			String serviceBusName = serviceBusNames[i];
 			populateMetadata(serviceBusName);
+			extractNowPlaying();
+			extractPlayBackStatus();
 		}
 	}
 	/**
@@ -35,6 +41,8 @@ public class MediaPlayerStatus {
 	 */
 	public MediaPlayerStatus(String serviceBusName) {
 		populateMetadata(serviceBusName);
+		extractNowPlaying();
+		extractPlayBackStatus();
 	}
 	/**
 	 * 
@@ -48,7 +56,7 @@ public class MediaPlayerStatus {
 			// failed to locate any properties
 			return;
 		}
-		this.id = serviceBusName;
+		this.setId(serviceBusName);
 		Iterator<String> keySetIter = allProperties.keySet().iterator();
 		while (keySetIter.hasNext()) {
 			String key = (String) keySetIter.next();
@@ -56,7 +64,7 @@ public class MediaPlayerStatus {
 			
 			if(value == null)
 			{
-				logger.debug("Failed to obtain "+propertyName + " for " + serviceBusName);
+				logger.debug("Failed to obtain " + propertyName + " for " + serviceBusName);
 				logger.debug("value is " + value + ": for " + serviceBusName);
 				value = "<unknown>";
 			}
@@ -85,6 +93,70 @@ public class MediaPlayerStatus {
 			this.metadata.put(key, (Variant)value);
 		}
 	}
+	private void extractPlayBackStatus() {
+		Object thisValue = metadata.get("PlaybackStatus");
+		if(thisValue==null) {
+			// not playing
+			return;
+		}
+		if(false == thisValue instanceof Variant) {
+			// not playing
+			return;
+		}
+		Variant thisMetadata = (Variant)thisValue; //new HashMap<String, Variant>();
+		if(false == thisMetadata.getValue() instanceof String) {
+			// not playing
+			return;
+		}
+		this.setPlaybackStatus((String)thisMetadata.getValue());
+		
+	}
+	String extractNowPlaying() {
+		Object metadataValue = metadata.get("Metadata");
+		if(metadataValue==null) {
+			// not playing
+			return null;
+		}
+		if(false == metadataValue instanceof Variant) {
+			// not playing
+			return null;
+		}
+		Variant thisMetadata = (Variant)metadataValue; //new HashMap<String, Variant>();
+		
+		Object value = thisMetadata.getValue();
+		if(value instanceof Map) {
+			Iterator<String> iter = ((Map)value).keySet().iterator();
+			while (iter.hasNext()) {
+				String key = (String) iter.next();
+				Object thisValue = ((Map)value).get(key);
+				if(Constants.DEBUG)
+				{
+					logger.debug(key + " " + thisValue);
+				}
+				logger.debug(key + " " + thisValue);
+				Variant thisValue1 = (Variant)thisValue;
+				if(key.equals("xesam:title")) {
+					if(thisValue1.getValue() instanceof String) {
+						this.setNowPlaying((String)thisValue1.getValue());
+					}
+				}
+				else if(key.equals("xesam:url")) 
+				{
+					if(thisValue1.getValue() instanceof String) {
+						this.setNowPlayingUrl((String)thisValue1.getValue());
+					}
+				}
+				else if(key.equals("xesam:url")) 
+				{
+					if(thisValue1.getValue() instanceof String) {
+						this.setNowPlayingUrl((String)thisValue1.getValue());
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * 
 	 * @param serviceBusName
@@ -101,6 +173,9 @@ public class MediaPlayerStatus {
 			DBus.Properties props = conn.getRemoteObject(serviceBusName, Constants.DBUS_OBJECT_PATH_ORG_MPRIS_MEDIAPLAYER2, DBus.Properties.class);
 
 			Map<String, Variant> allProperties = props.GetAll(Constants.DBUS_INTERFACE_NAME_ORG_MPRIS_MEDIAPLAYER);
+			if(logger.isInfoEnabled()) {
+				logger.info("          got info for: " + serviceBusName);
+			}
 			return allProperties;
 		} catch (ServiceUnknown e) {
 			logger.debug("Service Unknown for: " + serviceBusName);
@@ -113,7 +188,9 @@ public class MediaPlayerStatus {
 			}
 			conn.disconnect();
 		}
-		logger.debug("failed to get info for: " + serviceBusName);
+		if(logger.isInfoEnabled()) {
+			logger.info("failed to get info for: " + serviceBusName);
+		}
 		return null;
 	}
 	/**
@@ -137,21 +214,6 @@ public class MediaPlayerStatus {
 		Variant property = allProperties.get(propertyName);
 		
 		return property.getValue();
-	}
-	public String getId() {
-		return id;
-	}
-	public boolean isPlaying() {
-		return getPlaybackStatus().contains("Playing");
-	}
-	
-	public String getPlaybackStatus() {
-		Variant<Object> playBackStatusObject = getPropertyValue("PlaybackStatus");
-		
-		if(playBackStatusObject==null) {
-			return "notRunning";
-		}
-		return playBackStatusObject.toString();
 	}
 	public Map<String, Variant> getMetadata() {
 		return metadata;
