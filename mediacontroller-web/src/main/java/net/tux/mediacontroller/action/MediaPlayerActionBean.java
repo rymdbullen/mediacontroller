@@ -55,7 +55,8 @@ public class MediaPlayerActionBean implements ActionBean, ValidationErrorHandler
     /** Handles the 'status' event and returns the result. */
     @DefaultHandler 
     public Resolution status() {
-        String jsonText = getStatus();
+    	JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus(playerId);
+        String jsonText = jsonStatus.JSONStatus().toString();
 		return new StreamingResolution("text", new StringReader(jsonText));
     }
 
@@ -92,27 +93,6 @@ public class MediaPlayerActionBean implements ActionBean, ValidationErrorHandler
     	JSONMediaPlayerStatus status = new JSONMediaPlayerStatus(DBusMediaPlayer.previous(playerId));
 		String jsonText = status.JSONStatus();
     	return new StreamingResolution("text", new StringReader(jsonText));    
-    }
-    
-    private String getStatuses() {
-    	if(playerId!=null && playerId.equals("unknown")) {
-    		//yadayada
-    	}
-		Map<String, JSONMediaPlayerStatus> jsonStatus = DBusMediaPlayer.getJSONStatuses();
-		if(jsonStatus==null) {
-			logger.debug("no og");
-			return "{\"playerId\", \"no player\"}";
-		}
-		// XXX fix return value
-		return "jsonStatus.JSONStatus().toString()";
-	}
-    private String getStatus() {
-    	JSONMediaPlayerStatus jsonStatus = DBusMediaPlayer.getJSONStatus(playerId);
-    	if(jsonStatus==null) {
-    		logger.debug("no og");
-    		return "{\"playerId\", \"no player\"}";
-    	}
-    	return jsonStatus.JSONStatus().toString();
     }
     // Standard getter and setter methods
     public String getPlayerId() { return playerId; }

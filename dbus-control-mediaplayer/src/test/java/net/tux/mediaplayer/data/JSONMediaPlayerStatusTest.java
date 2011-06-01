@@ -1,5 +1,6 @@
 package net.tux.mediaplayer.data;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -31,6 +32,11 @@ public class JSONMediaPlayerStatusTest {
 			JSONMediaPlayerStatus status = jsonStatuses.get(key);
 			logger.debug("Status: "+status.JSONStatus());
 			logger.debug("NowPlaying: "+status.getPlayerStatus().getNowPlaying());
+			ArrayList<String> list = status.getPlayerStatus().getActivePlayers();
+			for (int index = 0; index < list.size(); index++) {
+				String id = list.get(index);
+				logger.debug("ActivePlayer: "+id);
+			}
 		}
 	}
 }

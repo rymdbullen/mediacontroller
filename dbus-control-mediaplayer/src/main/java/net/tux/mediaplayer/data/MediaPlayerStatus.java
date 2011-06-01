@@ -176,6 +176,7 @@ public class MediaPlayerStatus extends IStatus {
 			if(logger.isInfoEnabled()) {
 				logger.info("          got info for: " + serviceBusName);
 			}
+			this.getActivePlayers().add(serviceBusName);
 			return allProperties;
 		} catch (ServiceUnknown e) {
 			logger.debug("Service Unknown for: " + serviceBusName);

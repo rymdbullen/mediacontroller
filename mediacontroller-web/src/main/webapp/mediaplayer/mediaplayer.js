@@ -18,13 +18,11 @@
     	  requestHeaders: {Accept: 'application/json'},
     	  onSuccess: function(transport) {
     	    var json = transport.responseText.evalJSON(true);
-//alert(json ? Object.inspect(json) : "no JSON object");
+alert(json ? Object.inspect(json) : "no JSON object");
     	    var node = $("playerId");
     	    node.innerHTML = json.playerId;
     	    var node2 = $("janne")
     	    node2.value = json.playerId;
-    	    var node2 = $("isPlaying")
-    	    node2.value = json.isPlaying;
     	    
     	    /* */
     	    var html = '<ul>';
